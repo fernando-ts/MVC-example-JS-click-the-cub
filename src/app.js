@@ -1,15 +1,3 @@
-const model = {
-
-};
-
-const octopus = {
-
-};
-
-const view = {
-
-};
-
 //-> Select the element inside which cats names are displayed
 const listOfCats = document.querySelector('#cats-container');
 
