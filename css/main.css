@@ -1,0 +1,52 @@
+img {
+   width: 100%;
+   vertical-align: bottom;
+}
+
+.flex-container {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+
+/*
+   -> Style for the container of the image 
+*/
+.names-container {
+   height: 285px;
+   width: 200px;
+   margin: 40px 0 0 0;
+   border: 4px solid #50c878;
+    
+}
+
+a {
+   display: block; 
+   margin: 2em 0 2em 1.5em; 
+}
+
+.img-container {
+   height: 413px;
+   width: 460px;
+   border: 4px solid #50c878;
+   text-align: center;
+    
+}
+
+.img-container:hover {
+   cursor: pointer;
+}
+
+.img-container:active{
+   transform: scale(1.2);
+}
+
+
+/*
+   -> Style for the container of the counter outcome  
+*/
+.outcome {
+   margin: 0 30px 0 30px;
+   color: #fd6a02;
+   text-align: center;
+}
