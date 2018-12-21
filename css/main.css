@@ -12,7 +12,7 @@ img {
 /*
    -> Style for the container of the image 
 */
-.names-container {
+#list-cubs-container {
    height: 285px;
    width: 200px;
    margin: 40px 0 0 0;
@@ -22,7 +22,8 @@ img {
 
 a {
    display: block; 
-   margin: 2em 0 2em 1.5em; 
+   margin: 2em 0 2em 1.5em;
+   cursor: pointer; 
 }
 
 .img-container {
