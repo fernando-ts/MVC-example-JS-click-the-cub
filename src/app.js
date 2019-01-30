@@ -74,7 +74,7 @@ const octopus = {
       model.cubToDisplay.clickCount++;
       // We update the number of clicks in the DOM by callin the view.render()
       cubView.render();
-	},
+   },
    
    //- This section is for the ADMIN form 
    // NEW: First we need a method that handles whether adminActivated is true or false
@@ -84,7 +84,7 @@ const octopus = {
    },
 
    //NEW: with this method we   display the ADMIN form 
-	activateAdminMode() {
+   activateAdminMode() {
       cubView.adminRender();
    },
    
@@ -103,13 +103,13 @@ const cubView = {
    init() {
       this.cubTitleElem = document.querySelector('.cub-title');
       this.cubImgContainer = document.querySelector('#img-receiver');
-		this.countContainer = document.querySelector('#counter-clicks');
+      this.countContainer = document.querySelector('#counter-clicks');
       
       // NEW-FOR ADMIN: first we select all the elements that will be used  
       this.adminBtn = document.querySelector('#admin-btn');
       this.editForm = document.querySelector('.edit-cub-info');
       this.nameInput = document.querySelector('#name');
-		this.urlInput = document.querySelector('#url');
+      this.urlInput = document.querySelector('#url');
       this.clicksInput = document.querySelector('#clicks-counted');
       this.cancelBtn = document.querySelector('#cancel-btn');
       this.saveBtn = document.querySelector('#save-btn');
