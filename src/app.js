@@ -2,6 +2,7 @@
 //   which is later changed in octupus. And an array of cat objects.
 const model = {
    cubToDisplay: null,
+   adminActivated: false,  //-This sets the admin form view to true or false 
    cubs: [
       {
          name: 'Cub 1',
@@ -73,6 +74,23 @@ const octopus = {
       model.cubToDisplay.clickCount++;
       // We update the number of clicks in the DOM by callin the view.render()
       cubView.render();
+	},
+   
+   //- This section is for the ADMIN form 
+   // NEW: First we need a method that handles whether adminActivated is true or false
+   toggleAdminValue() {
+      model.adminActivated == false ? model.adminActivated = true : model.adminActivated = false;
+      return model.adminActivated; 
+   },
+
+   //NEW: with this method we   display the ADMIN form 
+	activateAdminMode() {
+      cubView.adminRender();
+   },
+   
+   //NEW: This metod updates the name changed of the current cub 
+   updateCubInfo(newName) {
+      this.getCurrentCubObj().name = newName; 
    }
 };
 
@@ -85,8 +103,17 @@ const cubView = {
    init() {
       this.cubTitleElem = document.querySelector('.cub-title');
       this.cubImgContainer = document.querySelector('#img-receiver');
-      this.countContainer = document.querySelector('#counter-clicks');
-
+		this.countContainer = document.querySelector('#counter-clicks');
+      
+      // NEW-FOR ADMIN: first we select all the elements that will be used  
+      this.adminBtn = document.querySelector('#admin-btn');
+      this.editForm = document.querySelector('.edit-cub-info');
+      this.nameInput = document.querySelector('#name');
+		this.urlInput = document.querySelector('#url');
+      this.clicksInput = document.querySelector('#clicks-counted');
+      this.cancelBtn = document.querySelector('#cancel-btn');
+      this.saveBtn = document.querySelector('#save-btn');
+		
       // After the selection of the cub img container, we need to add
       // an event listener to it so we can increment the clickCount property
       // from the model each time the displayed cub is clicked.
@@ -94,6 +121,27 @@ const cubView = {
          octopus.incrementCounter();
       });
 
+      // NEW: Event listener for activating the ADMIN view 
+      this.adminBtn.addEventListener('click', () => {
+         octopus.activateAdminMode();
+      });
+
+      // NEW: Event listener for CANCELING the editng 
+      this.cancelBtn.addEventListener('click', () => {
+         this.disableAdminMode();
+      });
+
+      // NEW: Event listener that saves and updates the current Cub 
+      this.saveBtn.addEventListener('click', () => {
+         const newName = this.nameInput.value;
+         octopus.updateCubInfo(newName);
+         this.render();
+         cubListView.clearCubList();
+         cubListView.render();
+         this.disableAdminMode();
+         alert('Update saved');         
+      });
+   
       // After incrementing the clickCount we have to update the DOM so we call our
       // render method from this current object.
       this.render();
@@ -107,6 +155,25 @@ const cubView = {
       this.cubTitleElem.textContent = currentCub.name;
       this.cubImgContainer.src = currentCub.imgSrc;
       this.countContainer.textContent = currentCub.clickCount;
+   },
+
+   // NEW:  This method handles display of the current cub when ADMIN is active  
+   adminRender() {
+      const formAdminStatus = octopus.toggleAdminValue();
+      
+      if (formAdminStatus) {
+         this.editForm.style.display = 'block';
+         const currentCub = octopus.getCurrentCubObj();
+         this.nameInput.value = currentCub.name;
+         this.urlInput.value = currentCub.imgSrc;
+         this.clicksInput.value = currentCub.clickCount;
+      }
+   },
+
+   // NEW: This method HIDES or disable the FORM of the ADMIN section 
+   disableAdminMode() {
+      octopus.toggleAdminValue();
+      this.editForm.style.display = 'none';
    }
 
 
@@ -154,6 +221,11 @@ const cubListView = {
          // In every loop we add an element to the list
          this.listOfCubs.appendChild(elem);
       }
+   },
+
+   // NEW: before displaying the updated cub info we need to clear the space
+   clearCubList() {
+      this.listOfCubs.innerHTML = '';
    }
 };
 
